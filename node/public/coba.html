@@ -1,0 +1,85 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="userConversation">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+	<title>Node/Angular Chat App</title>
+
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<style>
+		html 					{ overflow-y:scroll; }
+		body 					{ padding-top:50px; }
+		#todo-list 				{ margin-bottom:30px; }
+		#todo-form 	 			{ margin-bottom:50px; }
+		.me 					{ float: right; }
+		.else					{ float: left; }
+		.chat-box				{ overflow-y: scroll; height: 200px; }
+	</style>
+
+	<!-- SPELLS -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+
+	<script src="../../web/js/angular/controllers/usercontroller.js"></script> <!-- load up our controller -->
+	<script src="../../web/js/angular/services/userservice.js"></script> <!-- load our todo service -->
+	<script src="../../web/js/angular/core.js"></script> <!-- load our main application -->
+
+</head>
+<!-- SET THE CONTROLLER -->
+<body ng-controller="mainController">
+	<div class="container">
+
+		<!-- HEADER AND TODO COUNT -->
+		<div class="jumbotron text-center">
+			<h1>I'm a chat-aholic <span class="label label-info">{{ chats.length }}</span></h1>
+		</div>
+
+		<!-- TODO LIST -->
+		<div scroll-glue id="todo-list" class="row chat-box">
+			<div class="col-sm-4 col-sm-offset-4">
+
+				
+
+				<!-- LOOP OVER THE TODOS IN $scope.todos -->
+				<div class="checkbox" ng-repeat="chat in chats">
+					<div>
+						<div class="me" ng-if="chat.from == formData.from"> {{ chat.message }} </div>
+						<div class="else" ng-if="chat.to == formData.from"> {{ chat.message }} </div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- FORM TO CREATE TODOS -->
+		<div id="todo-form" class="row">
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<form>
+					<div class="form-group">
+
+						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+						<input type="hidden" value="dika" class="form-control input-lg text-center" ng-model="formData.from">
+						<input type="hidden" value="ganteng" class="form-control input-lg text-center" ng-model="formData.to">
+						<input type="text" class="form-control input-lg text-center" placeholder="messages" ng-model="formData.message">
+					</div>
+
+					<!-- createToDo() WILL CREATE NEW TODOS -->
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="sendMessage()">Kirim</button>
+				</form>
+			</div>
+		</div>
+
+		<div class="text-center text-muted">
+			<p>A demo by <a href="http://scotch.io">Scotch</a>.</p>
+			<p>Read the <a href="http://scotch.io/tutorials/javascript/creating-a-single-page-todo-app-with-node-and-angular">tutorial</a>.</p>
+		</div>
+
+	</div>
+
+</body>
+</html>
